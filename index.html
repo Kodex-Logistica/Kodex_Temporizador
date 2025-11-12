@@ -42,20 +42,31 @@ function pad(n){return n<10? '0'+n : n;}
 
 function update(){
   const now = Date.now();
-  let dist = target - now;
+  let dist = 0;
 
   if(dist <= 0){
-    // show final message
+    // hide the top messages so only the final message remains
+    const headline = document.querySelector('.headline');
+    if(headline) headline.style.display = 'none';
+    const sub = document.querySelector('.sub');
+    if(sub) sub.style.display = 'none';
+
+    // hide countdown
     document.getElementById('countdown').style.display = 'none';
+
+    // show only final message and style it
     const fm = document.getElementById('finalMessage');
+    const finalText = document.getElementById('finalText');
+    if(finalText) finalText.style.display = 'none'; // keep only the H2
     fm.style.display = 'flex';
-    // animate title for extra impact
+
     const title = document.getElementById('finalTitle');
-    title.style.color = '#ff6b00';
-    title.animate([{opacity:0,transform:'translateY(10px) scale(0.98)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:800,fill:'forwards'});
-    // optional small pulse
+    // make title prominent and give it a pulsing/glow effect via CSS class
+    title.classList.add('final-epic');
+
+    // small background pulse for emphasis
     document.body.style.transition = 'background 600ms ease';
-    document.body.animate([{filter:'brightness(1)'},{filter:'brightness(0.92)'}],{duration:900,fill:'forwards'});
+    document.body.animate([{filter:'brightness(1)'},{filter:'brightness(0.96)'}],{duration:900,fill:'forwards'});
     clearInterval(timer);
     return;
   }

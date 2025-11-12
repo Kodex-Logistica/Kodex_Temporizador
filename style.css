@@ -1,4 +1,7 @@
- :root{
+ /* make sizing predictable so padding doesn't create extra scrollbars */
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
     /* brand colors */
   --brand-blue: #183E75; /* azul da empresa */
   --brand-blue-light: #2b5fb0; /* variação mais clara para texto */
@@ -8,8 +11,8 @@
     --accent-2: var(--brand-blue);
     --muted: rgba(255,255,255,0.88);
   }
-  html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg1),#000);color:#fff}
-  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;position:relative;overflow:hidden}
+  html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg1),#000);color:#fff;overflow-x:hidden}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;box-sizing:border-box}
   /* subtle animated gradient background using brand colors */
   .bg-anim{position:absolute;inset:-20%;background:
     radial-gradient(circle at 12% 22%, rgba(24,62,117,0.08), transparent 9%),
@@ -46,6 +49,26 @@
   .final h2{font-size:2rem;margin:0;animation:finalIn 900ms ease both;color:var(--accent)}
   .final p{margin:0;color:var(--muted);font-weight:500}
 
+/* epic final title: larger and pulsing/glowing */
+.final-epic{
+  font-size:3.2rem;
+  animation: finalPulse 1400ms cubic-bezier(.2,.9,.3,1) 0s infinite;
+  color: var(--accent);
+  /* use a blue glow instead of orange background light */
+  text-shadow: 0 10px 36px rgba(24,62,117,0.28), 0 3px 12px rgba(24,62,117,0.12);
+  margin:0;
+  display:inline-block;
+  position:relative;
+  transform-origin:center;
+  will-change:transform,text-shadow,opacity;
+}
+
+@keyframes finalPulse{
+  0%{ transform:scale(1); opacity:1; text-shadow: 0 8px 36px rgba(24,62,117,0.20), 0 2px 8px rgba(24,62,117,0.06); }
+  50%{ transform:scale(1.06); opacity:1; text-shadow: 0 26px 96px rgba(24,62,117,0.36), 0 8px 30px rgba(24,62,117,0.14); }
+  100%{ transform:scale(1); opacity:1; text-shadow: 0 8px 36px rgba(24,62,117,0.20), 0 2px 8px rgba(24,62,117,0.06); }
+}
+
   @keyframes finalIn{
     from{opacity:0;transform:translateY(10px) scale(0.98)}
     to{opacity:1;transform:translateY(0) scale(1)}
@@ -61,4 +84,5 @@
     .headline{font-size:1.25rem}
     .glow{width:420px;height:120px;top:32%}
     .headline-sub{margin-top:0.25rem}
+    .final-epic{font-size:2rem}
   }
