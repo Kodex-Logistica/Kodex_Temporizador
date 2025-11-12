@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Em breve — Kodex</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+  <div class="wrap" role="main">
+    <div class="bg-anim" aria-hidden="true"></div>
+    <div class="card" aria-live="polite">
+  <h1 class="headline">Algo está prestes a mexer com tudo.<span class="headline-sub">E o relógio já começou a correr…</span></h1>
+      <p class="sub">Fique atento. Prepare-se para descobrir.</p>
+
+      <div class="glow" aria-hidden="true"></div>
+
+      <div id="countdown" class="countdown" aria-hidden="false" aria-label="Contagem regressiva">
+        <div class="unit"><div class="num" id="days">--</div><div class="label">Dias</div></div>
+        <div class="unit"><div class="num" id="hours">--</div><div class="label">Horas</div></div>
+        <div class="unit"><div class="num" id="minutes">--</div><div class="label">Minutos</div></div>
+        <div class="unit"><div class="num" id="seconds">--</div><div class="label">Segundos</div></div>
+      </div>
+
+      <div id="finalMessage" class="final" role="status" aria-live="polite">
+        <h2 id="finalTitle">Chegou a hora.</h2>
+        <p id="finalText">Prepare-se para o que vem aí.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>Kodex Logística 2025</footer>
+
+<script>
+// Target date: 01 Dec 2025 00:00:00 (local time)
+const target = new Date("2025-12-01T00:00:00").getTime();
+
+function pad(n){return n<10? '0'+n : n;}
+
+function update(){
+  const now = Date.now();
+  let dist = target - now;
+
+  if(dist <= 0){
+    // show final message
+    document.getElementById('countdown').style.display = 'none';
+    const fm = document.getElementById('finalMessage');
+    fm.style.display = 'flex';
+    // animate title for extra impact
+    const title = document.getElementById('finalTitle');
+    title.style.color = '#ff6b00';
+    title.animate([{opacity:0,transform:'translateY(10px) scale(0.98)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:800,fill:'forwards'});
+    // optional small pulse
+    document.body.style.transition = 'background 600ms ease';
+    document.body.animate([{filter:'brightness(1)'},{filter:'brightness(0.92)'}],{duration:900,fill:'forwards'});
+    clearInterval(timer);
+    return;
+  }
+
+  const days = Math.floor(dist / (1000*60*60*24));
+  const hours = Math.floor((dist % (1000*60*60*24)) / (1000*60*60));
+  const minutes = Math.floor((dist % (1000*60*60)) / (1000*60));
+  const seconds = Math.floor((dist % (1000*60)) / 1000);
+
+  // only animate numbers that actually changed; initialize once without animation
+  const map = {
+    days: days,
+    hours: pad(hours),
+    minutes: pad(minutes),
+    seconds: pad(seconds)
+  };
+
+  const isInit = !document.body.dataset.countdownInit;
+
+  Object.keys(map).forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const prev = el.dataset.prev ?? '';
+    if(isInit){
+      // first render: set values but don't animate
+      el.textContent = map[id];
+      el.dataset.prev = String(map[id]);
+      return;
+    }
+
+    if(prev !== String(map[id])){
+      el.textContent = map[id];
+      // subtle pop animation only for changed unit
+      el.animate([
+        { transform: 'translateY(6px)', opacity: 0.6 },
+        { transform: 'translateY(0)', opacity: 1 }
+      ], { duration: 360, easing: 'cubic-bezier(.2,.9,.3,1)', fill: 'forwards' });
+      el.dataset.prev = String(map[id]);
+    }
+  });
+
+  if(isInit) document.body.dataset.countdownInit = '1';
+}
+
+// start
+update();
+const timer = setInterval(update,1000);
+</script>
+</body>
+</html>

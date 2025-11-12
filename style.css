@@ -1,0 +1,64 @@
+ :root{
+    /* brand colors */
+  --brand-blue: #183E75; /* azul da empresa */
+  --brand-blue-light: #2b5fb0; /* variação mais clara para texto */
+    --brand-orange: #E77C05; /* laranja da empresa */
+  --bg1: #0b2a4d; /* slightly lighter deep background */
+    --accent: var(--brand-orange);
+    --accent-2: var(--brand-blue);
+    --muted: rgba(255,255,255,0.88);
+  }
+  html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg1),#000);color:#fff}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px;position:relative;overflow:hidden}
+  /* subtle animated gradient background using brand colors */
+  .bg-anim{position:absolute;inset:-20%;background:
+    radial-gradient(circle at 12% 22%, rgba(24,62,117,0.08), transparent 9%),
+    radial-gradient(circle at 88% 78%, rgba(231,124,5,0.07), transparent 12%);
+    filter:blur(40px);animation:bgMove 12s linear infinite;opacity:0.95;pointer-events:none}
+  @keyframes bgMove{
+    0%{transform:translate3d(0,0,0) rotate(0deg)}
+    50%{transform:translate3d(6%, -3%,0) rotate(3deg)}
+    100%{transform:translate3d(0,0,0) rotate(0deg)}
+  }
+
+  .card{position:relative;z-index:5;max-width:980px;width:100%;text-align:center;padding:48px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 12px 40px rgba(0,0,0,0.6);border:1px solid rgba(24,62,117,0.06)}
+  .headline{font-weight:700;font-size:1.9rem;line-height:1.12;margin:0 0 18px;letter-spacing:0.2px;color:#fff;text-shadow:0 8px 40px rgba(0,198,255,0.03)}
+  /* small, controlled spacing between headline and its sub-line */
+  .headline-sub{display:block;margin-top:0.35rem;font-weight:600;color:var(--brand-blue-light)}
+  .sub{color:var(--muted);margin:0 0 22px;font-weight:500}
+
+  /* Countdown box */
+  .countdown{display:flex;gap:18px;justify-content:center;align-items:center;margin:10px auto 14px;min-width:420px;flex-wrap:wrap}
+  .unit{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px 22px;border-radius:12px;min-width:110px;box-shadow:0 10px 30px rgba(0,0,0,0.6);border:1px solid rgba(24,62,117,0.06)}
+  .num{font-size:2.6rem;font-weight:700;color:var(--accent);text-shadow:0 8px 30px rgba(231,124,5,0.14);letter-spacing:1px}
+  /* performance hint + smooth color/transform transitions */
+  .num{will-change:transform,opacity;transition:color 220ms ease, transform 260ms cubic-bezier(.2,.9,.3,1)}
+  .label{font-size:0.9rem;color:var(--muted);margin-top:6px;font-weight:600}
+
+  /* Big pulse glow behind the countdown */
+  /* glow kept subtle and blue-only (removed central orange light) */
+  .glow{position:absolute;left:50%;top:38%;transform:translateX(-50%);width:820px;height:220px;border-radius:40px;background:
+    radial-gradient(circle at 50% 50%, rgba(24,62,117,0.14), transparent 35%);
+    filter:blur(40px);z-index:1;pointer-events:none;opacity:0.9}
+
+  /* Final message (hidden initially) */
+  .final{display:none;flex-direction:column;align-items:center;gap:10px}
+  .final h2{font-size:2rem;margin:0;animation:finalIn 900ms ease both;color:var(--accent)}
+  .final p{margin:0;color:var(--muted);font-weight:500}
+
+  @keyframes finalIn{
+    from{opacity:0;transform:translateY(10px) scale(0.98)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+
+  /* small footer */
+  footer{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);font-size:0.85rem;color:rgba(255,255,255,0.45);z-index:10}
+
+  /* responsive */
+  @media(max-width:600px){
+    .num{font-size:1.6rem}
+    .unit{min-width:78px;padding:12px}
+    .headline{font-size:1.25rem}
+    .glow{width:420px;height:120px;top:32%}
+    .headline-sub{margin-top:0.25rem}
+  }
