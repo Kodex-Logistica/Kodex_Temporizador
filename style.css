@@ -12,7 +12,7 @@
     --muted: rgba(255,255,255,0.88);
   }
   html,body{height:100%;margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,var(--bg1),#000);color:#fff;overflow-x:hidden}
-  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;box-sizing:border-box}
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;box-sizing:border-box;padding-bottom:80px}
   /* subtle animated gradient background using brand colors */
   .bg-anim{position:absolute;inset:-20%;background:
     radial-gradient(circle at 12% 22%, rgba(24,62,117,0.08), transparent 9%),
@@ -31,7 +31,7 @@
   .sub{color:var(--muted);margin:0 0 22px;font-weight:500}
 
   /* Countdown box */
-  .countdown{display:flex;gap:18px;justify-content:center;align-items:center;margin:10px auto 14px;min-width:420px;flex-wrap:wrap}
+  .countdown{display:flex;gap:18px;justify-content:center;align-items:center;margin:10px auto 14px;flex-wrap:wrap}
   .unit{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px 22px;border-radius:12px;min-width:110px;box-shadow:0 10px 30px rgba(0,0,0,0.6);border:1px solid rgba(24,62,117,0.06)}
   .num{font-size:2.6rem;font-weight:700;color:var(--accent);text-shadow:0 8px 30px rgba(231,124,5,0.14);letter-spacing:1px}
   /* performance hint + smooth color/transform transitions */
@@ -80,9 +80,21 @@
   /* responsive */
   @media(max-width:600px){
     .num{font-size:1.6rem}
-    .unit{min-width:78px;padding:12px}
-    .headline{font-size:1.25rem}
-    .glow{width:420px;height:120px;top:32%}
+    .unit{min-width:72px;padding:10px}
+    .headline{font-size:1.15rem;line-height:1.12}
+    .card{padding:20px}
+    .glow{width:320px;height:100px;top:30%}
+    .countdown{gap:12px;margin:8px auto 12px;min-width:auto}
     .headline-sub{margin-top:0.25rem}
     .final-epic{font-size:2rem}
+  }
+
+  @media(max-width:420px){
+    .num{font-size:1.3rem}
+    .unit{min-width:64px;padding:8px}
+    .headline{font-size:1rem}
+    .card{padding:16px;border-radius:10px}
+    .glow{width:260px;height:90px;top:28%}
+    .final-epic{font-size:1.6rem}
+    footer{font-size:0.8rem}
   }
